@@ -1,0 +1,12 @@
+#summary List of todo's for Picasa2Coppermine.
+#labels Featured,Phase-Design
+
+= Introduction =
+
+These are some things that I have in mind to implement/include in Picasa2Coppermine
+
+= Details =
+
+  * Add the ability to import the file data (caption, keywords) from Picasa into Coppermine
+  * Automate the creation of the .pbz file
+  * Get the Coppermine logo to appear properly in the Picasa button
