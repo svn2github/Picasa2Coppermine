@@ -1,0 +1,26 @@
+body {
+	margin-top: 50px;
+	margin-left: 50px;
+	background: #fefefe;
+	font-family: Arial, sans-serif;
+	font-size: 16px;
+}
+div  { 
+	font-size: 12px; 
+	font-family: Arial; 
+	margin-left: 20px; 
+	margin-top: 10px; 
+}
+div.h { 
+	padding: 6px;
+	background-color: #e5ecf9;
+	margin-top: 25px;
+	margin-bottom: 5px;
+	margin-left: 0px;
+	font-size: 14px;
+	font-weight: bold;
+}
+
+#title {
+	font-size: 18px;
+}
