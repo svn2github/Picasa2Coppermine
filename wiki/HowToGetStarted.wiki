@@ -1,0 +1,23 @@
+#summary This describes how to set up Picasa2Coppermine.
+#labels Featured,Phase-Deploy
+
+= Introduction =
+
+This plugin will enable the ability to upload photos from Picasa 3 into Coppermine Photo Gallery 1.5. These are the instructions to set up the files necessary for the Picasa button to work.
+
+= Setting up the files in Coppermine =
+
+  # Copy the file `picasa_form.php` and the folder `picasa` into the root of the Coppermine gallery folder
+  # In the `picasa` folder, edit the file `coppermine.pbf`
+    * Replace YOURGALLERY.URL to match the url of your Coppermine gallery.
+  # Create a zip archive containing `coppermine.pbf` and `coppermine.psd`
+  # Rename that zip file to `coppermine.pbz`
+  # In the `picasa` folder, edit the file `index.html`
+    * Replace YOURGALLERY.URL to match the url of your Coppermine gallery.
+
+= Install the button in Picasa =
+  # In the browser, go to http://YOURGALLERY.URL/picasa/
+  # Click on the link "Coppermine Uploader"
+  # In the dialog box that will appear, click on Launch Application
+  # In the button configuration dialog box, select CPG in the Available Buttons on the left-hand side, click on Add, then OK when done.
+  
