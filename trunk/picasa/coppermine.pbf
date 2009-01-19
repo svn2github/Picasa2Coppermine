@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<buttons format="1" version="1">
+  <button id="custombutton/coppermine" type="dynamic">
+    <icon name="coppermine/cpg_icon" src="pbz"/>
+    <label>CPG</label>
+    <tooltip>Post photos to Coppermine</tooltip>    
+    <action verb="hybrid">
+      <param name="url" value="http://YOURGALLERY.URL/picasa_form.php"/>
+    </action>
+  </button>
+</buttons>
