@@ -7,6 +7,13 @@ These are some things that I have in mind to implement/include in Picasa2Copperm
 
 = Details =
 
-  * Add the ability to import the file data (caption, keywords) from Picasa into Coppermine
+Installation
+
+  * Use the Coppermine Plugin API to make it easier to install
   * Automate the creation of the .pbz file
   * Get the Coppermine logo to appear properly in the Picasa button
+
+Usage
+
+  * Add the ability to import the file data (caption, keywords) from Picasa into Coppermine
+  * Upload video files
