@@ -1,0 +1,18 @@
+#summary How to use install the plugin.
+#labels Phase-Deploy
+
+= Introduction =
+
+The instructions here pertain to the files in the folder `picasa_upload` in the repository. This version uses the Coppermine plugin API so that the manual edits involved with the non-plugin version are no longer needed.
+
+= Installation =
+
+  * Checkout the folder `picasa_upload` to `plugins` directory of CPG
+  * Go to Plugin Manager to install it. 
+    * Note: While installing, the plugin will create a .pbz file in albums/edit since it is writable by web server. If this process fails then plugin won't install.
+
+After installation, there will be a link on the plugin block to install the picasa button which directly links to that .pbz file. The plugin also creates a button in the sub-menu section and can be seen there if the theme supports that plugin hook.
+
+Please note that the plugin folder name `picasa_upload` shouldn't be changed since it is hardcoded at various places in the plugin files.
+
+Note: Once everything works fine, the older files/folder in SVN will be removed to avoid confusion.
