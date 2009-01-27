@@ -178,7 +178,7 @@ if($rss)
 			<div>
     <?
         $xh = new xmlHandler();
-        $nodeNames = array("PHOTO:THUMBNAIL", "PHOTO:IMGSRC", "TITLE", "DESCRIPTION");
+        $nodeNames = array("PHOTO:THUMBNAIL", "PHOTO:IMGSRC", "TITLE", "DESCRIPTION", "MEDIA:GROUP", "MEDIA:CONTENT");
         $xh->setElementNames($nodeNames);
         $xh->setStartTag("ITEM");
         $xh->setVarsDefault();
@@ -194,7 +194,11 @@ if($rss)
     
         // Image request queue: add image requests for base image & clickthrough
         foreach($pData as $e) {
-            $large = $e['photo:imgsrc']."?size=$max_size";
+            if ($e['media:video']) {
+                $large = $e['media:content'];
+            } else {
+                $large = $e['media:content:image']."?size=$max_size";
+            }
             
             echo "<input type=hidden name='".$large."'>\r\n";
             echo "<input type=hidden name='title[]' value=\"{$e['description']}\">\r\n";
