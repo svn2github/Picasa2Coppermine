@@ -9,11 +9,11 @@ These are some things that I have in mind to implement/include in Picasa2Copperm
 
 Installation
 
-  * [ToDoPlugin Use the Coppermine Plugin API] to make it easier to install
-  * Automate the creation of the .pbz file
+  * ~~[ToDoPlugin Use the Coppermine Plugin API] to make it easier to install~~
+  * ~~Automate the creation of the .pbz file~~
   * Get the Coppermine logo to appear properly in the Picasa button
 
 Usage
 
-  * Add the ability to import the file data (caption, keywords) from Picasa into Coppermine
+  * ~~Add the ability to import the file data (caption, keywords) from Picasa into Coppermine~~ (n/a since this could be done via separate IPTC import tool)
   * Upload video files
