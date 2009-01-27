@@ -39,14 +39,12 @@ pageheader_mini('Upload', true);
 echo '<link rel="stylesheet" href="plugins/picasa_upload/picasa_upload.css" type="text/css" />';
 //echo "<pre>".htmlentities($rss)."</pre>";
 ?>
-<a href="logout.php">Logout</a>
-<table align="center" width="50%">
-    <tr>
-        <td><img src="images/coppermine-logo.png" /></td>
-        <td><h2><?php echo $CONFIG['gallery_name']; ?></h2></td>
-    </tr>
-</table>
-<br />
+Curently logged in as <strong><?php echo USER_NAME; ?></strong> | <a href="index.php?p_force_logout=1&file=picasa_upload/picasa_login">Login as different user</a> | <a href="logout.php">Logout</a>
+<div align="center">
+	<img src="images/coppermine-logo.png" />
+    <h1><?php echo $CONFIG['gallery_name']; ?></h1>
+</div>
+
 <?php
 if($rss)
 {
@@ -91,17 +89,12 @@ if($rss)
     
     if (count($public_albums_list) || count($user_albums_list)) {
     ?>
-    <form name='f' method='post' id="picasa_form" action='upload.php'>
+    <h2>Upload photos to your site from Picasa</h2>
+    <form name="f" method="post" id="picasa_form" action="upload.php">
     <input type="hidden" name="plugin_process" />
     <input type="hidden" name="user" value="<?php echo base64_encode(serialize($user_pass)); ?>" />
-    <?php starttable("75%", cpg_fetch_icon('upload',2).'Upload photos to your site from Picasa', 2); ?>
-    <tr class="tablef">
-        <td>Curently logged in as <strong><em><?php echo USER_NAME; ?></em></strong></td>
-        <td align="right"><a href="index.php?p_force_logout=1&file=picasa_upload/picasa_login">Login as different user</a></td>
-    </tr>
-    <tr>
-        <td>Select album in which to upload files</td>
-        <td>
+    <div class="h">Select album in which to upload files</div>
+        <div>
             <select name="album" class="listbox" id="album">
             <?php
             // Get the ancestry of the categories
@@ -178,13 +171,11 @@ if($rss)
             }
             ?>
             </select>
-        </td>
-    </tr>
-    <tr>
-        <td colspan="2" class="tablef">Selected images</td>
-    </tr>
-    <tr>
-    <td>
+        </div>
+		
+		<div class="h">Selected images</div>
+    
+			<div>
     <?
         $xh = new xmlHandler();
         $nodeNames = array("PHOTO:THUMBNAIL", "PHOTO:IMGSRC", "TITLE", "DESCRIPTION");
@@ -209,13 +200,13 @@ if($rss)
             echo "<input type=hidden name='title[]' value=\"{$e['description']}\">\r\n";
         }
     ?>
-        </td>
-    </tr>
-    <tr>
-        <td align="center" colspan="2"><input type=submit value="Publish!">&nbsp;<input type=button value="Discard" onClick="location.href='minibrowser:close'"></td>
-    </tr>
-    <?php endtable(); ?>
-    </form>
+			</div>
+
+		<div class="h">
+			<input type="submit" value="Publish!">&nbsp;<input type="button" value="Discard" onClick="location.href='minibrowser:close'">
+		</div>
+		
+		</form>
     <?php
     } else {
         // no albums
