@@ -7,17 +7,17 @@ Here are some thoughts on what the plugin version of picasa2coppermine might ent
 
 = Plugin =
 
-  *  Installation process of plugin
-       * Get url of gallery via config to help generate the .pbf file
-       * Use an archive library to put the .pbf and .psd file into an archive
+  *  ~~Installation process of plugin~~
+       * ~~Get url of gallery via config to help generate the .pbf file~~
+       * ~~Use an archive library to put the .pbf and .psd file into an archive~~
           * Need to check if the site supports such a library and provide instructions if the admin must do this manually
-       * Rename the file to .pbz
-    * After the .pbz file is created, provide a link to it to the admin
-  * If index.html could be a .php file instead, it could get gallery url via config. 
-    * Maybe use of the plugin would allow access to include/ whereas being in the `picasa` subfolder currently does not
+       * ~~Rename the file to .pbz~~
+    * ~~After the .pbz file is created, provide a link to it to the admin~~
+  * ~~If index.html could be a .php file instead, it could get gallery url via config. ~~
+    * ~~Maybe use of the plugin would allow access to include/ whereas being in the `picasa` subfolder currently does not~~
 
 = Settings =
 
-  * Allow user to use Picasa button to do the uploads
+  * Allow non-admin user to use Picasa button to do the uploads
     * Let's see if there is demand
     * Also need to make sure that this will be secure
