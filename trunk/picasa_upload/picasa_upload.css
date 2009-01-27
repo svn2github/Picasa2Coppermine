@@ -1,0 +1,25 @@
+/****************************
+  Picasa to Coppermine Upload
+  ***************************
+  Copyright (c) Aditya Mooley <adityamooley@sanisoft.com>
+
+  This program is free software; you can redistribute it and/or modify
+  it under the terms of the GNU General Public License version 3
+  as published by the Free Software Foundation.
+
+  ********************************************
+  Version: 1
+  $HeadURL:$
+  $Revision:$
+  $LastChangedBy:$
+  $Date:$
+**********************************************/
+
+body {
+    background-color: #fff;
+}
+
+.cpg_message_info, .cpg_message_success, .cpg_message_warning, .cpg_message_error, .cpg_message_validation {
+    width: 75%;
+    margin: auto;
+}

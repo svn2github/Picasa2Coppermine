@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<buttons format="1" version="1">
+  <button id="coppermine/{86a1ab87-00e2-441c-806b-23aeff6bcf0d}" type="dynamic">
+    <icon name="{86a1ab87-00e2-441c-806b-23aeff6bcf0d}/cpg_icon" src="pbz"/>
+    <label>Coppermine</label>
+    <tooltip>Post photos to Coppermine</tooltip>    
+    <action verb="hybrid">
+      <param name="url" value="{UPLOAD_LINK}"/>
+    </action>
+  </button>
+</buttons>
