@@ -3,13 +3,14 @@
 
 = Introduction =
 
-This plugin will enable the ability to upload photos from Picasa 3 into Coppermine Photo Gallery 1.5. These are the instructions to set up the files necessary for the Picasa button to work.
+This will enable the ability to upload photos from Picasa 3 into Coppermine Photo Gallery 1.5. There are currently two versions. These are the instructions to set up the files necessary for the Picasa button to work.
 
-= Plugin =
+= Plugin version =
 
   * To try the plugin version, please review [HowToInstallPlugin]
 
-= Setting up the files in Coppermine =
+= Non-plugin version =
+== Setting up the files in Coppermine ==
 
   # Copy the file `picasa_form.php` and the folder `picasa` into the root of the Coppermine gallery folder
   # In the `picasa` folder, edit the file `coppermine.pbf`
