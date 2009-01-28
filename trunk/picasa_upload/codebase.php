@@ -107,7 +107,7 @@ function picasa_process_upload_form($upload_form)
     global $CONFIG, $lang_db_input_php, $PIC_NEED_APPROVAL;
     
     include_once('picmgmt.inc.php');
-
+    
     $superCage = Inspekt::makeSuperCage();
     
     $album = $superCage->post->getInt('album');
@@ -193,6 +193,7 @@ function picasa_process_upload_form($upload_form)
      * super globals. So, using the following workaround by directly quering the '_source' array in superCage to get keys
      */
     foreach ($superCage->files->_source as $key => $file) {
+        set_time_limit(0);
         $counter++;
         // Test if the filename of the temporary uploaded picture is empty
         if ($superCage->files->_source[$key]['tmp_name'] == '') {
