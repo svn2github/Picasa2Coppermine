@@ -15,27 +15,16 @@
   $Date:$
 **********************************************/
 
+body {
+    background-color: #fff;
+}
+
 .cpg_message_info, .cpg_message_success, .cpg_message_warning, .cpg_message_error, .cpg_message_validation {
     width: 75%;
     margin: auto;
 }
 
-body {
-	margin: 20px;
-	background: #fefefe;
-	font-family: Arial, sans-serif;
-	font-size: 16px;
-}
-div  { 
-	font-size: 12px; 
-	font-family: Arial; 
-	margin: 10px 20px; 
-}
-div.h { 
-	padding: 6px;
-	background-color: #e5ecf9;
-	margin-top: 25px;
-	margin-bottom: 5px;
-	font-size: 14px;
-	font-weight: bold;
+.maintable {
+    width: 75%;
+    margin: auto;
 }
