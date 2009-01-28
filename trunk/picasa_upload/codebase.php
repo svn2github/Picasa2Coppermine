@@ -10,10 +10,10 @@
 
   ********************************************
   Version: 1
-  $HeadURL:$
-  $Revision:$
-  $LastChangedBy:$
-  $Date:$
+  $HeadURL$
+  $Revision$
+  $LastChangedBy$
+  $Date$
 **********************************************/
 
 if (!defined('IN_COPPERMINE')) die('Not in Coppermine...');
