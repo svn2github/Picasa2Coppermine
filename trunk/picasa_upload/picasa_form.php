@@ -37,7 +37,7 @@ $user_pass = $cpg_udb->get_user_pass(USER_ID);
 js_include('plugins/picasa_upload/picasa_upload.js');
 pageheader_mini('Upload', true);
 echo '<link rel="stylesheet" href="plugins/picasa_upload/picasa_upload.css" type="text/css" />';
-echo "<pre>".htmlentities($rss)."</pre>";
+//echo "<pre>".htmlentities($rss)."</pre>";
 ?>
 
 <table align="center" width="50%">
@@ -197,9 +197,6 @@ if($rss)
         $pData = $xh->xmlParse();
         $br = 0;
         
-        echo '<pre>';
-        print_r($pData);
-        echo '</pre>';
         // Preview "tray": draw shadowed square thumbnails of size 48x48
         foreach($pData as $e) {
             //echo "<img src='".$e['photo:thumbnail']."?size=100x100' /> \r\n";
