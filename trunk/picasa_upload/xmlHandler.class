@@ -1,4 +1,4 @@
-<?
+<?php
 #
 # xmlhandler class
 #
@@ -89,7 +89,11 @@
             if($this->curTagState == $eNames)
             {
                 $strLoName = strtolower($eNames);
-                $this->xmlReturnData[$this->itemCounter]["$strLoName"] = $xmlData;
+                if (isset($this->xmlReturnData[$this->itemCounter][$strLoName])) {
+                    $this->xmlReturnData[$this->itemCounter][$strLoName] .= $xmlData;
+                } else {
+                    $this->xmlReturnData[$this->itemCounter][$strLoName] = $xmlData;
+                }
             }
         }
     }

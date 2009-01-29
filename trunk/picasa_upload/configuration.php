@@ -27,6 +27,10 @@ $extra_info = <<<EOT
         <td class="admin_menu">
           <a href="$link" title="Picasa Button">Install Picasa Button</a>
         </td>
+        <td>&nbsp;</td>
+        <td class="admin_menu">
+          <a href="index.php?file=picasa_upload/index&action=config" title="Picasa Button">Configure Plugin</a>
+        </td>
     </tr>
 </table>
 EOT;

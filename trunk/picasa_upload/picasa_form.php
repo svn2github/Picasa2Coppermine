@@ -10,10 +10,10 @@
 
   ********************************************
   Version: 1
-  $HeadURL:$
-  $Revision:$
-  $LastChangedBy:$
-  $Date:$
+  $HeadURL$
+  $Revision$
+  $LastChangedBy$
+  $Date$
 **********************************************/
 
 if (!defined('IN_COPPERMINE')) die('Not in Coppermine...');
@@ -37,7 +37,7 @@ $user_pass = $cpg_udb->get_user_pass(USER_ID);
 js_include('plugins/picasa_upload/picasa_upload.js');
 pageheader_mini('Upload', true);
 echo '<link rel="stylesheet" href="plugins/picasa_upload/picasa_upload.css" type="text/css" />';
-//echo "<pre>".htmlentities($rss)."</pre>";
+echo "<pre>".htmlentities($rss)."</pre>";
 ?>
 
 <table align="center" width="50%">
@@ -188,7 +188,7 @@ if($rss)
     <td colspan="2">
     <?
         $xh = new xmlHandler();
-        $nodeNames = array("PHOTO:THUMBNAIL", "PHOTO:IMGSRC", "TITLE", "DESCRIPTION", "MEDIA:GROUP", "MEDIA:CONTENT");
+        $nodeNames = array("TITLE", "DESCRIPTION", "MEDIA:GROUP", "MEDIA:CONTENT", "MEDIA:THUMBNAIL");
         $xh->setElementNames($nodeNames);
         $xh->setStartTag("ITEM");
         $xh->setVarsDefault();
@@ -197,17 +197,28 @@ if($rss)
         $pData = $xh->xmlParse();
         $br = 0;
         
+        echo '<pre>';
+        print_r($pData);
+        echo '</pre>';
         // Preview "tray": draw shadowed square thumbnails of size 48x48
         foreach($pData as $e) {
-            echo "<img src='".$e['photo:thumbnail']."?size=100x100' /> \r\n";
+            //echo "<img src='".$e['photo:thumbnail']."?size=100x100' /> \r\n";
+            echo "<img src='".$e['media:thumbnail']."?size=100' /> \r\n";
         }
     
         // Image request queue: add image requests for base image & clickthrough
         foreach($pData as $e) {
             if ($e['media:video']) {
                 $large = $e['media:content'];
+                if ($CONFIG['plugin_picasa_thumb']) {
+                    echo "<input type=hidden name='".$e['media:thumbnail']."?size={$thumb_size}"."'>\r\n";
+                }
             } else {
                 $large = $e['media:content:image']."?size=$max_size";
+                
+                if ($CONFIG['plugin_picasa_thumb']) {
+                    echo "<input type=hidden name='".$e['media:content:image']."?size={$thumb_size}"."'>\r\n";
+                }
             }
             
             echo "<input type=hidden name='".$large."'>\r\n";

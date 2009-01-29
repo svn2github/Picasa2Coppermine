@@ -19,8 +19,11 @@
 if (!defined('IN_COPPERMINE')) die('Not in Coppermine...');
 
 $thisplugin->add_action('plugin_install','picasa_plugin_install');
+$thisplugin->add_action('plugin_configure','picasa_plugin_configure');
+$thisplugin->add_action('plugin_uninstall','picsa_plugin_uninstall');
 $thisplugin->add_filter('sub_menu', 'picasa_sub_menu_button');
 $thisplugin->add_action('upload_process','picasa_process_upload_form');
+
 
 /**
  * Function to perform some actions when installing this plugin
@@ -29,47 +32,120 @@ $thisplugin->add_action('upload_process','picasa_process_upload_form');
 function picasa_plugin_install()
 {
     global $CONFIG;
-    include('archive.php');
-
-    $basedir = dirname(dirname(dirname(__FILE__)));
-    $albumdir = $basedir . DIRECTORY_SEPARATOR . $CONFIG['fullpath'];
     
-    //First create a usable .pbf and save in edit folder since it's already writable
-    $pbfStr = file_get_contents($basedir.'/plugins/picasa_upload/{86a1ab87-00e2-441c-806b-23aeff6bcf0d}.pbf');
+    $superCage = Inspekt::makeSuperCage();
     
-    //Replace the {UPLOAD_LINK} with correct link based on user's gallery url
-    $pbfStr = str_replace('{UPLOAD_LINK}', $CONFIG['ecards_more_pic_target'].'index.php?file=picasa_upload/picasa_form', $pbfStr);
+    if ($superCage->post->keyExists('picsa_upload_config')) {
+        include('archive.php');
     
-    //Write this string to the file.
-    file_put_contents($albumdir.'/edit/{86a1ab87-00e2-441c-806b-23aeff6bcf0d}.pbf', $pbfStr);
-    
-    // Now we have both the files needed to create the pbz file.
-    $zip = new zip_file('coppermine.pbz');
-    $options = array(
-            'basedir'    => $albumdir.'/edit',
-            'overwrite'  => 1,
-            'inmemory'   => 0,
-            'recurse'    => 0,
-            'storepaths' => 0,
-            'name'       => 'coppermine.pbz',
-            'type'       => 'zip',
-        );
-    
-    $filelist = array($basedir.'/plugins/picasa_upload/{86a1ab87-00e2-441c-806b-23aeff6bcf0d}.psd', $albumdir.'/edit/{86a1ab87-00e2-441c-806b-23aeff6bcf0d}.pbf');
-    $zip->set_options($options);
-    $zip->add_files($filelist);
-    
-    // Save the pbz file in edit folder. We will be linking to this file directly as required by Picasa.
-    $zip->create_archive();
-    
-    // The file must get created. Otherwise the plugin won't install.
-    if ($zip->error) {
-        return false;
+        $basedir = dirname(dirname(dirname(__FILE__)));
+        $albumdir = $basedir . DIRECTORY_SEPARATOR . $CONFIG['fullpath'];
+        
+        //First create a usable .pbf and save in edit folder since it's already writable
+        $pbfStr = file_get_contents($basedir.'/plugins/picasa_upload/{86a1ab87-00e2-441c-806b-23aeff6bcf0d}.pbf');
+        
+        //Replace the {UPLOAD_LINK} with correct link based on user's gallery url
+        $pbfStr = str_replace('{UPLOAD_LINK}', $CONFIG['ecards_more_pic_target'].'index.php?file=picasa_upload/picasa_form', $pbfStr);
+        
+        //Write this string to the file.
+        file_put_contents($albumdir.'/edit/{86a1ab87-00e2-441c-806b-23aeff6bcf0d}.pbf', $pbfStr);
+        
+        // Now we have both the files needed to create the pbz file.
+        $zip = new zip_file('coppermine.pbz');
+        $options = array(
+                'basedir'    => $albumdir.'/edit',
+                'overwrite'  => 1,
+                'inmemory'   => 0,
+                'recurse'    => 0,
+                'storepaths' => 0,
+                'name'       => 'coppermine.pbz',
+                'type'       => 'zip',
+            );
+        
+        $filelist = array($basedir.'/plugins/picasa_upload/{86a1ab87-00e2-441c-806b-23aeff6bcf0d}.psd', $albumdir.'/edit/{86a1ab87-00e2-441c-806b-23aeff6bcf0d}.pbf');
+        $zip->set_options($options);
+        $zip->add_files($filelist);
+        
+        // Save the pbz file in edit folder. We will be linking to this file directly as required by Picasa.
+        $zip->create_archive();
+        
+        // The file must get created. Otherwise the plugin won't install.
+        if ($zip->error) {
+            return false;
+        } else {
+            // zip file created. Now add the config setting for thumb creation in config table
+            return picasa_update_config();
+        }
     } else {
-        return true;
+        return 1;
     }
+}// end picasa_plugin_install()
+
+function picasa_update_config()
+{
+    global $CONFIG;
+    
+    $superCage = Inspekt::makeSuperCage();
+    
+    $value = $superCage->post->keyExists('plugin_picasa_thumb') ? $superCage->post->getInt('plugin_picasa_thumb') : 0;
+    
+    if (array_key_exists('plugin_picasa_thumb', $CONFIG) == FALSE) {
+        $f = cpg_db_query("INSERT INTO {$CONFIG['TABLE_CONFIG']} VALUES ('plugin_picasa_thumb', $value)");
+    } else {
+        $f = cpg_db_query("UPDATE {$CONFIG['TABLE_CONFIG']} SET value = $value WHERE name = 'plugin_picasa_thumb'");
+    }
+    
+    return $f;
 }
 
+
+/**
+ * Function to show the configuration options for this plugin
+ */
+function picasa_plugin_configure()
+{
+    global $CONFIG;
+    
+    $superCage = Inspekt::makeSuperCage();
+    
+    $action = $superCage->server->getEscaped('REQUEST_URI');
+    $checked = (isset($CONFIG['plugin_picasa_thumb']) && $CONFIG['plugin_picasa_thumb'] == 1) ? 'checked' : '';
+    
+    $help = '&nbsp;'.cpg_display_help('f=empty.htm&amp;base=64&amp;h='.urlencode(base64_encode(serialize('Allowing Picasa to create thumbnails'))).'&amp;t='.urlencode(base64_encode(serialize('Allowing Picasa to create thumbnails will put less load on your server while processing the uploaded images. On the flip side this will require more bandwidth since Picasa will send two files per image.<br />Thumbnails will be based on your current config settings.'))),470,245);
+
+echo <<< EOT
+    <form action="{$action}" method="post">
+        <table border="0" cellspacing="0" cellpadding="0" width="100%">
+            <tr>
+                <td class="tablef">Set configuration options for Picasa Upload Plugin</td>
+            </tr>
+            <tr>
+                <td class="tableb">
+                    <input type="checkbox" name="plugin_picasa_thumb" id="plugin_picasa_thumb" value="1" $checked />
+                    <label for="plugin_picasa_thumb">Let Picasa create thumbnails for me.</label>&nbsp;$help
+                </td>
+            </tr>
+            <tr>
+                <td class="tableb">
+                    <input type="submit" name="picsa_upload_config" value="Submit" class="button" />
+                </td>
+            </tr>
+        </table>
+    </form>
+EOT;
+}// end picasa_plugin_configure
+
+
+/**
+ * Cleanup while uninstalling
+ */
+function picsa_plugin_uninstall()
+{
+    global $CONFIG;
+    $f= cpg_db_query("DELETE FROM {$CONFIG['TABLE_CONFIG']} WHERE `name` = 'plugin_picasa_thumb'");
+    
+    return true;
+}// end picsa_plugin_uninstall()
 
 /**
  * Function to provide the link for installing Picasa Coppermine button in sub-menu. The link will be shown in the
@@ -231,6 +307,20 @@ function picasa_process_upload_form($upload_form)
         }
     
         $uploaded_pic = $dest_dir . $picture_name;
+        
+        // Check whether the current file is actually a thumbnail
+        if ($CONFIG['plugin_picasa_thumb']) {
+            $p_size = substr($key, strrpos($key, '=')+1);
+            if ($p_size == $CONFIG['thumb_width']) {
+                // This is a thumbnail. Upload it and continue
+                $thumb_pic = $dest_dir . $CONFIG['thumb_pfx'] . $picture_name;
+                move_uploaded_file($superCage->files->_source[$key]['tmp_name'], $thumb_pic);
+                
+                // This is a thumbnail image. decrement the counter so that we can get correct image title in the next iteration.
+                $counter--;
+                continue;
+            }
+        }
         
         // Move the picture into its final location
         if (!move_uploaded_file($superCage->files->_source[$key]['tmp_name'], $uploaded_pic)) {
