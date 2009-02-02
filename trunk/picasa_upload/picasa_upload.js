@@ -40,6 +40,8 @@ $(document).ready(function(){
             $('#album_name').focus();
             return false;
         }
+        
+        alert("Uploading your files. Please be patient.\nIt may take few minutes, depending on the number of files you are uploading, before you see the status for your action.");
         return true;
     });
 });

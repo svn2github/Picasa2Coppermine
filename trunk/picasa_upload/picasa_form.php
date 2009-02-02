@@ -49,8 +49,7 @@ echo '<link rel="stylesheet" href="plugins/picasa_upload/picasa_upload.css" type
 <br />
 
 <?php
-if($rss)
-{
+if($rss) {
     if (GALLERY_ADMIN_MODE) {
         $public_albums = cpg_db_query("SELECT aid, title, cid, name FROM {$CONFIG['TABLE_ALBUMS']} INNER JOIN {$CONFIG['TABLE_CATEGORIES']} ON cid = category WHERE category < " . FIRST_USER_CAT);
         //select albums that don't belong to a category
@@ -183,12 +182,21 @@ if($rss)
             <span id="new_album_block">&nbsp;&nbsp;Album name: <input type="text" name="album_name" id="album_name" /></span>
         </td>
     </tr>
+    <?php
+    if ($CONFIG['plugin_picasa_thumb']) {
+    ?>
+    <tr>
+        <td colspan="2" class="tablef">You have opted for thumbnail creation with Picasa. Please note that your server limits you to post <?php echo ini_get('post_max_size').'B'; ?> data. If the total size of upload goes beyond this size then the program will fail without giving any signal.</td>
+    </tr>
+    <?php
+    }
+    ?>
     <tr>
         <td colspan="2" class="tablef">Selected images</td>
     </tr>
     <tr>
     <td colspan="2">
-    <?
+    <?php
         $xh = new xmlHandler();
         $nodeNames = array("TITLE", "DESCRIPTION", "MEDIA:GROUP", "MEDIA:CONTENT", "MEDIA:THUMBNAIL");
         $xh->setElementNames($nodeNames);
