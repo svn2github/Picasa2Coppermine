@@ -101,7 +101,7 @@ if($rss)
         <td align="right"><a href="index.php?p_force_logout=1&file=picasa_upload/picasa_login">Login as different user</a></td>
     </tr>
     <tr>
-        <td>Select album in which to upload files</td>
+        <td width="35%">Select album in which to upload files</td>
         <td>
             <select name="album" class="listbox" id="album">
             <?php
@@ -163,6 +163,7 @@ if($rss)
             // Finally, print out the nicely sorted and formatted drop down list
             $alb_cid = '';
             echo '                <option value="">' . $lang_common['select_album'] . "</option>\n";
+            echo '<option value="-1">Create new album ...</option>';
             foreach ($listArray as $val) {
                 //if ($val['cat'] != $alb_cat) {  // old method compared names which might not be unique
                 if ($val['cid'] !== $alb_cid) {
@@ -179,6 +180,7 @@ if($rss)
             }
             ?>
             </select>
+            <span id="new_album_block">&nbsp;&nbsp;Album name: <input type="text" name="album_name" id="album_name" /></span>
         </td>
     </tr>
     <tr>

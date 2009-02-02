@@ -15,9 +15,29 @@
   $Date:$
 **********************************************/
 $(document).ready(function(){
+    $('#new_album_block').hide();
+    
+    $('#album').change(function() {
+        if ($('#album').val() == -1) {
+            // New album option selected
+            $('#new_album_block').show();
+            $('#album_name').focus();
+        } else {
+            $('#album_name').val('');
+            $('#new_album_block').hide();
+        }
+    });
+    
     $('#picasa_form').submit(function(){
         if (!$('#album').val()) {
             alert('Please select album to upload the selected photos');
+            $('#album').focus();
+            return false;
+        }
+        
+        if ($('#album').val() == -1 && !$('#album_name').val()) {
+            alert('Please enter the name for new album');
+            $('#album_name').focus();
             return false;
         }
         return true;

@@ -187,6 +187,15 @@ function picasa_process_upload_form($upload_form)
     $superCage = Inspekt::makeSuperCage();
     
     $album = $superCage->post->getInt('album');
+    
+    if (-1 == $album) {
+        // User wants to create a new album.
+        $album = create_new_album();
+        
+        if (!$album) {
+            picasa_redirect('Error', sprintf('Failed to create the new album'));
+        }
+    }
 
     if (!USER_CAN_UPLOAD_PICTURES) {
         picasa_redirect('error', 'Permission Denied');
@@ -391,6 +400,40 @@ function picasa_process_upload_form($upload_form)
     
     exit;
 }// end picasa_process_upload_form()
+
+
+// Function to create new album and return the album id
+function create_new_album()
+{
+    global $CONFIG;
+    
+    $superCage = Inspekt::makeSuperCage();
+    
+    $album_name = '';
+    if ($superCage->post->keyExists('album_name')) {
+        $album_name = $superCage->post->getEscaped('album_name');
+    }
+    
+    if (!$album_name) {
+        return false;
+    }
+    
+    if (!GALLERY_ADMIN_MODE) {
+        // Normal user. Create the new album in that user's category
+        $cid = FIRST_USER_CAT + USER_ID;
+    } else {
+        $cid = 0;
+    }
+    
+    $user_id = USER_ID;
+    
+    //add the album to database
+    $query = "INSERT INTO {$CONFIG['TABLE_ALBUMS']} (category, title, uploads, pos, description, owner) VALUES ('$cid', '$album_name', 'NO', '0', '', '$user_id')";
+    cpg_db_query($query);
+
+    //get the aid of added the albums
+    return mysql_insert_id($CONFIG['LINK_ID']);
+}
 
 
 /**
