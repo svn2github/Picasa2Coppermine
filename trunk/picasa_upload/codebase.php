@@ -111,7 +111,7 @@ function picasa_plugin_configure()
     $action = $superCage->server->getEscaped('REQUEST_URI');
     $checked = (isset($CONFIG['plugin_picasa_thumb']) && $CONFIG['plugin_picasa_thumb'] == 1) ? 'checked' : '';
     
-    $help = '&nbsp;'.cpg_display_help('f=empty.htm&amp;base=64&amp;h='.urlencode(base64_encode(serialize('Allowing Picasa to create thumbnails'))).'&amp;t='.urlencode(base64_encode(serialize('Allowing Picasa to create thumbnails will put less load on your server while processing the uploaded images. On the flip side this will require more bandwidth since Picasa will send two files per image.<br />Thumbnails will be based on your current config settings.'))),470,245);
+    $help = '&nbsp;'.cpg_display_help('f=empty.htm&amp;base=64&amp;h='.urlencode(base64_encode(serialize('Allowing Picasa to create thumbnails'))).'&amp;t='.urlencode(base64_encode(serialize('Allowing Picasa to create thumbnails will put less load on your server while processing the uploaded images. On the flip side this will require more bandwidth since Picasa will send two files per image.<br />Thumbnails will be based on your current max width setting in config.'))),470,245);
 
 echo <<< EOT
     <form action="{$action}" method="post">
