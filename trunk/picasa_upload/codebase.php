@@ -20,7 +20,7 @@ if (!defined('IN_COPPERMINE')) die('Not in Coppermine...');
 
 $thisplugin->add_action('plugin_install','picasa_plugin_install');
 $thisplugin->add_action('plugin_configure','picasa_plugin_configure');
-$thisplugin->add_action('plugin_uninstall','picsa_plugin_uninstall');
+$thisplugin->add_action('plugin_uninstall','picasa_plugin_uninstall');
 $thisplugin->add_filter('sub_menu', 'picasa_sub_menu_button');
 $thisplugin->add_action('upload_process','picasa_process_upload_form');
 
@@ -35,7 +35,7 @@ function picasa_plugin_install()
     
     $superCage = Inspekt::makeSuperCage();
     
-    if ($superCage->post->keyExists('picsa_upload_config')) {
+    if ($superCage->post->keyExists('picasa_upload_config')) {
         include('archive.php');
     
         $basedir = dirname(dirname(dirname(__FILE__)));
@@ -127,7 +127,7 @@ echo <<< EOT
             </tr>
             <tr>
                 <td class="tableb">
-                    <input type="submit" name="picsa_upload_config" value="Submit" class="button" />
+                    <input type="submit" name="picasa_upload_config" value="Submit" class="button" />
                 </td>
             </tr>
         </table>
@@ -139,13 +139,13 @@ EOT;
 /**
  * Cleanup while uninstalling
  */
-function picsa_plugin_uninstall()
+function picasa_plugin_uninstall()
 {
     global $CONFIG;
     $f= cpg_db_query("DELETE FROM {$CONFIG['TABLE_CONFIG']} WHERE `name` = 'plugin_picasa_thumb'");
     
     return true;
-}// end picsa_plugin_uninstall()
+}// end picasa_plugin_uninstall()
 
 /**
  * Function to provide the link for installing Picasa Coppermine button in sub-menu. The link will be shown in the
@@ -395,7 +395,7 @@ function picasa_process_upload_form($upload_form)
     if ($success) {
         picasa_redirect('success', "Status: $success files uploaded, $failed files failed.", $album);
     } else {
-        picasa_redirect('error', 'No files where uploaded');
+        picasa_redirect('error', 'No files were uploaded');
     }
     
     exit;
