@@ -453,4 +453,26 @@ function picasa_redirect($status='', $mesg='', $album=0)
     echo $CONFIG['ecards_more_pic_target'].'index.php?'.$albStr.'status='.$status.'&mesg='.urlencode($mesg).'&file=picasa_upload/status';
     exit;
 }// end picasa_redirect
+
+
+// Work around for PHP 4
+if (!function_exists('file_put_contents')) {
+	function file_put_contents($fileName, $data) {
+		if (is_array($data)) {
+			$data = join('', $data);
+		}
+		$fp = @fopen($fileName, 'w+b');
+
+		if ($fp) {
+			$write = @fwrite($fp, $data);
+			if ($write === false) {
+				return false;
+			} else {
+				@fclose($fp);
+				return $write;
+			}
+		}
+		return false;
+	}
+}
 ?>
