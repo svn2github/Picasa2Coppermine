@@ -377,7 +377,7 @@ function picasa_process_upload_form($upload_form)
         // Create thumbnail and internediate image and add the image into the DB
         $result = add_picture($album, $filepath, $picture_name, 0, $superCage->post->getEscaped("/title/$counter"));
         
-        if (!$result) {
+        if ($result !== true) {
             @unlink($uploaded_pic);
             $failed++;
             continue;
