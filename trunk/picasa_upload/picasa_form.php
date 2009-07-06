@@ -30,6 +30,10 @@ $picasa_dir = 'picasa_uploads';
 
 require_once("xmlHandler.class");
 $rss = $superCage->post->getRaw('rss');
+
+// If magic quotes are on, strip the slashes from RSS otherwise it won't parse
+$rss = get_magic_quotes_gpc() ? stripslashes($rss) : $rss;
+
 $thumb_size = $CONFIG['thumb_width'];
 $max_size = $CONFIG['max_upl_width_height'];
 

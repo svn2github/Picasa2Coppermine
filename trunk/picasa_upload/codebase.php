@@ -36,7 +36,7 @@ function picasa_plugin_install()
     $superCage = Inspekt::makeSuperCage();
     
     if ($superCage->post->keyExists('picasa_upload_config')) {
-        include('archive.php');
+        include('include/archive.php');
     
         $basedir = dirname(dirname(dirname(__FILE__)));
         $albumdir = $basedir . DIRECTORY_SEPARATOR . $CONFIG['fullpath'];
