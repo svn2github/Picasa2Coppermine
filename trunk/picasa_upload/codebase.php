@@ -153,7 +153,7 @@ function picasa_plugin_uninstall()
  */
 function picasa_sub_menu_button($menu)
 {
-    global $CONFIG;
+    global $CONFIG, $template_sub_menu_spacer;
     
     if (!USER_ID) {
         return $menu;
@@ -164,7 +164,7 @@ function picasa_sub_menu_button($menu)
     $new_button[0][1] = 'Install Picasa Button';
     $new_button[0][2] = 'picasa://importbutton/?url='.$CONFIG['ecards_more_pic_target'].'albums/edit/coppermine.pbz';
     $new_button[0][3] = 'class_name';
-    $new_button[0][4] = '::';
+    $new_button[0][4] = $template_sub_menu_spacer;
     $new_button[0][5] = 'rel="nofolow"';
 
     // Add the link array to the existing array correctly and return the modified menu
